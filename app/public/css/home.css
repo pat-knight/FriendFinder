@@ -1,6 +1,5 @@
 body {
     background-image: url('../../../images/background3.jpeg');
-    /* background: gray; */
 	background-size: cover;
 	background-position: center;
 	font-family: lato;
@@ -31,5 +30,5 @@ hr {
 }
 
 .btn {
-    background: #ad74a8;
+    background: #008cff;
 }
