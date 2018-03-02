@@ -1,31 +1,38 @@
 var members = [];
+const database = require('../data/friends');
 
 module.exports = function(app) {
+
     //send JSON of all possible friends
     app.get('/api/friends', (req, res) => {
         res.json(members);
     });
 
     app.post('/data/friends', (req, res) => {
-        if (req.body) {
-            members.push(req.body);
-            findMatch();
+        let newMember = req.body;
+        if (newMember) {
+            members.push(newMember.body);
+            findMatch(newMember);
         }
         
         //handle incoming survey results and handle compatibility logic
         var updateMembers = {
-            name: req.body.name,
-            photo: req.body.photo,
-            profile: req.body.profile
+            name: newMember.name,
+            photo: newMember.photo,
+            profile: newMember.profile
         }
         res.json(updatemembers);
     });
 }
 
-app.get('/api/friends', (req, res) => {
-    //display a JSON of all possible friends
-});
-
-app.post('/api/friends', (req, res) => {
-    //handle incoming survey results and handle compatibility logic
-});
+function findMatch(newMember) {
+    database().then(members => {
+        members.forEach(member => {
+            if (member.name !== newMember.name) {
+                let currentProfileSum = newMember.profile.map((answer, index) => {
+                    return Math.abs(member.profile[index] - answer);
+                })
+            }
+        });
+    })
+}
