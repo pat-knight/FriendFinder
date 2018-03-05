@@ -1,11 +1,16 @@
 const path = require('path');
+const route = require('express').Router();
 
 //if GET /survey 
-app.get('/survey', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/surveys.html'));
+
+
+route.get('/survey', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/survey.html'));
 });
 
 //catchall and send to home page
-app.get('*', (req, res) => {
+route.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/home.html'));    
 });
+
+module.exports = route;
